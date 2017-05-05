@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+	<meta charset="UTF-8">
+	<title>Previsão de Fumaça</title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<style>
+        .canvas{
+            text-align: center;
+            font-size: 40px;
+            font-family: sans-serif;
+        }
+
+        h1{
+            text-align: center;
+            font-size: 50px;
+            font-family: sans-serif;
+            color: gray;
+        }
+    </style>
+
+	<script>
+			
+	</script>
+</head>
+<body>
+
+	<h1>Previsão de Fumaça</h1>
+	
+	<span id="firstAir">Primeiro</span>
+	<span id="lastAir">Último</span>
+<br>
+	Largura: <input type="text" id="larguraMapa" /><br>
+	Altura: <input type="text" id="alturaMapa" /><br>
+	<button id="btnCriaMapa">Criar Mapa</button>
+<br><br>
+	Longitude: <input type="text" id="longitude" /><br>
+	Altitude: <input type="text" id="altitude" /><br>
+	<button id="btnAddAeroporto">Add Aeroporto</button>
+			<br><br>
+	<button id="btnIniciarLeitura">Iniciar Leitura</button>
+
+	<div id="mapa" class="canvas"></div>
+
+    <script>
+
+        function criarMapa(y, x) {
+		  var matriz = [];
+		  for (var i = 0; i < x; i++) {
+		    var linha = [];
+		    for (var j = 0; j < y; j++) {
+		      linha.push(".");
+		    }
+		    matriz.push(linha);
+		  }
+		  return matriz;
+		}
+
+		var lagura;
+		var altura;
+		var matriz;
+		var nuvens;
+		function inserirFumaca(c,l)
+		{
+			matriz[l][c] = "*";
+		}
+
+		function inserirAeroporto(c,l)
+		{
+			matriz[l][c] = "A";
+		}
+
+		function leituraFumaca()
+		{
+			alert("aqui1");
+			for (var i = 0; i < matriz.length; i++) {
+				alert("aqui2");
+				for (var j = 0; j < matriz[i].length; j++) {
+					alert("aqui3");
+					if(matriz[i][j] == "*"){
+						alert("aqui4");
+						nuvens.push({"col":j, "lin":i});
+					}
+				}
+			}
+			for (var i = 0; i < nuvens.length; i++) {
+				alert(nuvens[i]["col"]+" <> "+nuvens[i]["lin"]);
+			}	
+		}
+
+		$("#btnCriaMapa").click(function ()
+		{
+			lagura = $("#larguraMapa").val();
+			altura = $("#alturaMapa").val();
+			
+			matriz = criarMapa(lagura, altura);
+			for (var i = 0; i < (lagura*altura*0.1); i++) {
+				inserirFumaca(Math.floor(Math.random()*((lagura*0.6)-0+1)+0),Math.floor(Math.random()*((altura*0.5)-0+1)+0));
+			}
+
+			document.getElementById("mapa").innerHTML = matriz.map(l => '<br>' + l);
+		});
+
+		$("#btnAddAeroporto").click(function ()
+		{
+			var longit = $("#longitude").val();
+			var altitu = $("#altitude").val();
+			
+			inserirAeroporto(longit-1, altitu-1);
+
+			document.getElementById("mapa").innerHTML = matriz.map(l => '<br>' + l);
+
+			$("#longitude").val("");
+			$("#altitude").val("");
+		});
+
+		$("#btnIniciarLeitura").click(function(){
+			//setInterval(function(){
+				leituraFumaca();
+			//},1000);
+		});
+
+		
+    </script>
+</body>
+</html>
