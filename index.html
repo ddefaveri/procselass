@@ -72,19 +72,16 @@
 
 		function leituraFumaca()
 		{
-			alert("aqui1");
 			for (var i = 0; i < matriz.length; i++) {
-				alert("aqui2");
 				for (var j = 0; j < matriz[i].length; j++) {
-					alert("aqui3");
 					if(matriz[i][j] == "*"){
-						alert("aqui4");
-						nuvens.push({"col":j, "lin":i});
+						nuvens.push({col:j, lin:i});
 					}
 				}
 			}
 			for (var i = 0; i < nuvens.length; i++) {
-				alert(nuvens[i]["col"]+" <> "+nuvens[i]["lin"]);
+alert("aqui");
+				alert(nuvens[i].col+" <> "+nuvens[i].lin);
 			}	
 		}
 
